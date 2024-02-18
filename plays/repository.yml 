@@ -1,0 +1,21 @@
+---
+- hosts: data
+  become: yes
+  tasks:
+    - ansible.builtin.yum_repository:
+        name: epel
+        description: Internal YUM/DNF repo
+        baseurl: https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+        file: epel_repo
+        gpgcheck: yes
+        enabled: yes
+        state: absent
+      notify: yum clean metadata
+
+    - ansible.builtin.rpm_key:
+        key: https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-9
+        state: absent
+  handlers:
+    - name: yum clean metadata
+      ansible.builtin.command: yum clean metadata
+

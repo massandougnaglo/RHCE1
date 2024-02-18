@@ -1,0 +1,41 @@
+---
+- hosts: all
+  become: yes
+  vars_files:
+    - user12_list.yml
+    - mate.txt
+  tasks:
+    - name: Create groups
+      ansible.builtin.group:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - bobo
+        - bella
+
+    - name: Create developer users
+      ansible.builtin.user:
+        name: "{{ item.name }}"
+        group: bobo
+        password: "{{ pwd_devop | password_hash('sha512') }}"
+        update_password: on_create
+        password_expire_max: "{{ item.password_expire_max }}"
+      loop: "{{ users }}"
+      when:
+        - inventory_hostname in groups['proxy'] or inventory_hostname in groups['web']
+        - item.job == 'developer'
+        - item.password_expire_max == '10'
+
+    - name: Create manager users
+      ansible.builtin.user:
+        name: "{{ item.name }}"
+        group: bella
+        password: "{{ pwd_mager | password_hash('sha512') }}"
+        update_password: on_create
+        password_expire_max: "{{ item.password_expire_max }}"
+      loop: "{{ users }}"
+      when:
+        - inventory_hostname in groups['data']
+        - item.job == 'manager'
+        - item.password_expire_max == '9'
+

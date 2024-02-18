@@ -1,0 +1,38 @@
+---
+- name: create a directory
+  hosts: all 
+  become: yes
+  tasks:
+    - name: create a group
+      ansible.builtin.group:
+        name: webdev
+        state: present
+
+    - name: create a directory with all
+      ansible.builtin.file:
+        path: /webdev
+        group: webdev
+        mode: '2775' 
+        state: directory
+
+    - name: create a symlink
+      ansible.builtin.file:
+        src: /webdev
+        dest: /var/www/html/webdev
+        state: link
+        force: yes 
+
+    - name: create a file
+      ansible.builtin.copy:
+        content: "development"
+        dest: /var/www/html/webdev/index.html
+
+    - name: secure the file
+      community.general.sefcontext:
+        target: '/webdev(/.*)?'   
+        setype: httpd_sys_content_t
+        state: present
+
+    - name: restorecon
+      ansible.builtin.command: restorecon -RFv /var/www/html/webdev/index.html
+

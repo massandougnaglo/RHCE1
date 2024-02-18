@@ -1,0 +1,29 @@
+---
+- hosts: all
+  become: yes 
+  tasks:
+    - ansible.builtin.copy:
+        content: Proxy
+        dest: /etc/issue 
+      when: inventory_hostname in groups['proxy']
+
+    - ansible.builtin.copy:
+        content: test
+        dest: /etc/issue
+      when: inventory_hostname in groups['test']
+
+
+    - ansible.builtin.copy:
+        content: webservers
+        dest: /etc/issue
+      when: inventory_hostname in groups['web']
+
+
+    - ansible.builtin.copy:
+        content: Production
+        dest: /etc/issue
+      when: inventory_hostname in groups['prod']
+
+    
+   
+

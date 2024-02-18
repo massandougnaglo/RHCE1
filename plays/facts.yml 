@@ -1,0 +1,12 @@
+---
+- hosts: data
+  become: yes
+  tasks: 
+    - ansible.builtin.file:
+        path: /etc/ansible/facts.d
+        state: directory
+        recurse: yes
+
+    - ansible.builtin.copy:
+        src: custom.fact
+        dest: /etc/ansible/facts.d

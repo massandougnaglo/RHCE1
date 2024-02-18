@@ -1,0 +1,10 @@
+---
+- hosts: proxy
+  become: yes
+  vars:
+    timesync_ntp_servers:
+      - hostname: time.google.com
+        iburst: true
+
+  roles:
+    - rhel-system-roles.timesync

@@ -1,0 +1,18 @@
+---
+- hosts: data
+  become: yes
+  tasks:
+    - ansible.builtin.file:
+        path: /mnt/mysql_backups
+        state: directory
+        recurse: yes
+
+     
+    - ansible.builtin.copy:
+        content: dev,test,qa,prod
+        dest: /mnt/mysql_backups/database_list.tx
+
+    - ansible.builtin.archive:
+        path: /mnt/mysql_backups/database_list.tx
+        dest: /mnt/mysql_backupshive.gz
+        format: gz

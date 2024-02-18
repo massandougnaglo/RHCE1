@@ -1,0 +1,12 @@
+---
+- hosts: data
+  become: yes
+  vars:
+     haproxy_backend_servers:
+      - name: ansible1.hl.local
+        address: 10.0.0.31:80
+      - name: ansible2.hl.local
+        address: 10.0.0.32:80
+  roles:
+    - geerlingguy.haproxy     
+

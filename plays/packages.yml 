@@ -1,0 +1,17 @@
+---
+- hosts: proxy
+  become: yes
+  tasks: 
+    - ansible.builtin.dnf:
+        name: tcpdump
+        state: present
+
+
+- hosts: data
+  become: yes
+  tasks:
+    - ansible.builtin.dnf:
+        name: lsof
+        state: present
+
+

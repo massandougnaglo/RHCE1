@@ -1,0 +1,23 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - ansible.builtin.dnf:
+        name: "{{item}}"
+        state: latest
+      loop:
+        - php
+        - mariadb    
+      when: inventory_hostname in groups['proxy'] or  inventory_hostname in groups['web']or  inventory_hostname in groups['test']
+
+    - ansible.builtin.dnf:
+        name: '@RPM Development tools'
+        state: latest
+      when: inventory_hostname in groups['proxy']
+
+    - ansible.builtin.dnf:
+        name: "*"
+        state: latest
+      when: inventory_hostname in groups['proxy']   
+
+

@@ -1,0 +1,14 @@
+---
+- hosts: proxy
+  become: yes
+  tasks: 
+    - ansible.builtin.cron:
+        name: /etc/cron.d/add-date-time
+        weekday: "1-5"
+        minute: "*/2"
+        hour: "9-16"
+        user: patrick
+        job: 'date > /var/log/time.log'
+        
+
+

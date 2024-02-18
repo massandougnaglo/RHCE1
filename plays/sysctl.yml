@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: yes
+
+  tasks: 
+    - ansible.posix.sysctl:
+        name: vm.swapiness 
+        value: '10'
+        state: present
+        reload: true
+      when: ansible_memtotal_mb > 2048
+    - name: Please use 'msg' when server memory is less than 2048
+      ansible.builtin.debug:
+        msg: "server memory less than 2048"
+      when: 'ansible_memtotal_mb < 2048'    
+
+  

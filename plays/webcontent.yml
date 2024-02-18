@@ -1,0 +1,32 @@
+---
+- hosts: web
+  become: yes
+  tasks:
+    - ansible.builtin.group:
+        name: webdev
+        state: present
+
+    - ansible.builtin.file:
+        path: /webdev
+        state: directory
+        group: webdev
+        mode: '2775'
+        
+    - ansible.builtin.file:
+        src: /webdev 
+        dest: /var/www/html/webdev
+        state: link
+        force: yes
+
+    - ansible.builtin.copy:
+        content: Development
+        dest: /webdev/index.html 
+
+    - community.general.sefcontext:
+        target: '/webdev(/.*)?'
+        setype: httpd_sys_content_t
+        state: present
+
+    - ansible.builtin.command: restorecon -RFv /webdev      
+      
+      

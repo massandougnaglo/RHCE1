@@ -1,0 +1,7 @@
+---
+roles:
+  - src: geerlingguy.haproxy
+    name: balancer
+  - src: davidalger.php_fpm 
+    name: phpinfo
+

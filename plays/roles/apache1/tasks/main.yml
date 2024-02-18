@@ -1,0 +1,27 @@
+---
+# tasks file for roles/apache1
+- ansible.builtin.dnf:
+    name: "{{item}}"
+    state: latest
+  loop:
+      - httpd
+      - firewalld
+
+- ansible.builtin.service:
+    name: "{{item}}"
+    state: started
+    enabled: yes
+  loop:
+    - httpd
+    - firewalld    
+
+- ansible.posix.firewalld:
+    service: "{{rule}}"
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- ansible.builtin.template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+  notify: restart httpd    

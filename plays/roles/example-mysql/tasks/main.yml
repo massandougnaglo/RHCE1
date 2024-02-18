@@ -1,0 +1,33 @@
+---
+# tasks file for roles/example-mysql
+- community.general.parted:
+    device: /dev/sdc
+    number: 1
+    part_end: 800MiB
+    state: present
+
+- community.general.lvg:
+    vg: vg_data
+    pvs: /dev/sdc1
+
+- community.general.lvol:
+    vg: vg_data
+    lv: lv_mys
+    size: 512
+
+- community.general.filesystem:
+    fstype: xfs
+    dev: /dev/vg_data/lv_mys
+
+- ansible.builtin.file:
+    path: /mnt/mys_backup
+    state: directory
+
+
+
+- ansible.posix.mount:
+    path: /mnt/mys_backup
+    src: /dev/vg_data/lv_mys
+    fstype: xfs
+    state: present
+

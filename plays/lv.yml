@@ -1,0 +1,52 @@
+---
+- name: partition
+  hosts: all
+  become: yes
+  tasks:
+    - name: use block
+      block:
+        - name: check if research exist
+          ansible.builtin.debug:
+            msg: research does not exist
+          when: '"research" not in ansible_lvm.vgs'   
+        - name: create lvm with 1500
+          community.general.lvol:
+            vg: research
+            lv: lv
+            size: 1500
+          when: '"research" in ansible_lvm.vgs'    
+     
+      rescue:
+        - name: print message
+          ansible.builtin.debug:
+            msg: Could not create logical volume of that size
+          when: '"research" in ansible_lvm.vgs'
+        - name: create lvm 800
+          community.general.lvol:
+            vg: research
+            lv: lv
+            size: 800
+      always:
+        - name: format the disk
+          community.general.filesystem:
+            fstype: xfs
+            dev: /dev/research/lv       
+          when: '"research" in ansible_lvm.vgs'
+    - name: create directory
+      ansible.builtin.file:
+        path: /data
+        state: directory
+      when: inventory_hostname in groups['proxy']
+
+    - name: mount permanently
+      ansible.posix.mount:
+        path: /data
+        src: /dev/research/lv
+        fstype: xfs
+        state: mounted  
+     
+              
+
+    
+
+

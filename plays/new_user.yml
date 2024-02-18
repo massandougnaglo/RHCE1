@@ -1,0 +1,14 @@
+---
+users:
+  - name: louis
+
+    Job: manager
+
+  - name: John
+
+    Job: developer
+
+  - name: Oscar
+
+    Job: developer
+

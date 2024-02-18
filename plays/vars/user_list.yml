@@ -1,0 +1,18 @@
+---
+users:
+  - name: alice
+
+    uid: 1201
+
+  - name: vincent
+
+    uid: 1202
+
+  - name: sandy
+
+    uid: 2201
+
+  - name: patrick
+
+    uid: 2202
+

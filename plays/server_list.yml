@@ -1,0 +1,10 @@
+---
+- hosts: data
+  become: yes
+  tasks:
+    - ansible.builtin.template:
+        src: server_list.j2
+        dest: /etc/server_list.txt 
+        owner: automation
+        mode: '0600'
+        setype: net_conf_t

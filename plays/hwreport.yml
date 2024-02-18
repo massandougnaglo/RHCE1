@@ -1,0 +1,7 @@
+---
+- hosts: web
+  become: yes
+  tasks:
+    - ansible.builtin.template:
+        src: hwreport.empty
+        dest: /root/hwreport.txt

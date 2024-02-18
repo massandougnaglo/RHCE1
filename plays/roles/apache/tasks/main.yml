@@ -1,0 +1,29 @@
+---
+# tasks file for roles/apache
+- name: create apache
+  ansible.builtin.dnf:
+    name: 
+      - httpd
+      - firewalld
+    state: latest
+
+- name: start service     
+  ansible.builtin.service:
+    name: httpd
+    state: started
+    enabled: yes
+
+- name: open the port
+  ansible.posix.firewalld:
+    port: 80/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: modify the root file
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+  notify: restart httpd
+
+
