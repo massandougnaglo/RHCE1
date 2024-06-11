@@ -1,12 +1,17 @@
 ---
-- hosts: data
+- hosts: awx_group
   become: yes
   tasks: 
-    - ansible.builtin.file:
-        path: /etc/ansible/facts.d
-        state: directory
-        recurse: yes
+    - name: update
+      yum:
+        name: "*"
+        state: latest
 
-    - ansible.builtin.copy:
-        src: custom.fact
-        dest: /etc/ansible/facts.d
+  #  - ansible.builtin.file:
+  #      path: /etc/ansible/facts.d
+   #     state: directory
+    #    recurse: yes
+
+   # - ansible.builtin.copy:
+     #   src: custom.fact
+      #  dest: /etc/ansible/facts.d
