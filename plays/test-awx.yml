@@ -1,0 +1,11 @@
+ name: Install required packages
+  hosts: localhost
+  become: yes
+
+  tasks:
+    - name: Install GIT
+      yum:
+        name: git
+        state: present
+
+    
