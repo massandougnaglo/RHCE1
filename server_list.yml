@@ -1,0 +1,9 @@
+---
+- name: list all the server in my inventory
+  hosts: all_hosts
+  become: yes
+
+  tasks:
+    - name: list of the servers
+      debug:
+        msg: "{{inventory_hostname}}"
