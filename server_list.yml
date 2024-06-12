@@ -1,6 +1,6 @@
 ---
 - name: list all the server in my inventory
-  hosts: awx_inv
+  hosts: awx-inv
   become: yes
 
   tasks:
