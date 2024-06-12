@@ -1,5 +1,6 @@
 ---
 - name: list all the server in my inventory
+  hosts: sp_inv
   become: yes
 
   tasks:
