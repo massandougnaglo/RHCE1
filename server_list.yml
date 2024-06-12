@@ -1,6 +1,5 @@
 ---
 - name: list all the server in my inventory
-  hosts: 10.3.50.240
   become: yes
 
   tasks:
