@@ -1,0 +1,5 @@
+- hosts: 10.220.0.94
+  become: yes
+  tasks:
+    - debug:
+        msg: system {{inventory_hostname}}
