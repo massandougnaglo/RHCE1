@@ -1,4 +1,4 @@
-- hosts: 10.220.0.94
+- hosts: inventory1
   become: yes
   tasks:
     - debug:
