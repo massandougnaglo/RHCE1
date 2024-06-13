@@ -1,4 +1,4 @@
-  hosts:  AWX-RDZ1.dev.geocloud.nesdis.noaa.gov
+  hosts: AWX-RDZ1.dev.geocloud.nesdis.noaa.gov
   become: yes
   tasks:
     - debug:
