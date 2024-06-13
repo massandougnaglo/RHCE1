@@ -1,5 +1,6 @@
- hosts: AWX-RDZ1.dev.geocloud.nesdis.noaa.gov
+---
+- hosts: localhost
   become: yes
   tasks:
     - debug:
-        msg: system {{inventory_hostname}}
+        msg: "{{inventory_hostname}}"
