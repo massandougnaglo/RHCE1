@@ -1,4 +1,4 @@
-- hosts: inventory1
+- hosts: 
   become: yes
   tasks:
     - debug:
