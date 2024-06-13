@@ -1,4 +1,4 @@
-- hosts: 
+ 
   become: yes
   tasks:
     - debug:
