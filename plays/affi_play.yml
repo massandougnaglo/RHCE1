@@ -1,5 +1,5 @@
 ---
-- hosts: 10.220.248.19
+- hosts: 10.220.248.19, 10.220.50.240
   become: yes
   tasks:
     - debug:
