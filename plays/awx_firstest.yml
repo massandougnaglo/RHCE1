@@ -1,6 +1,6 @@
 ---
 - name: check if httpd is installed
-  hosts: webservwes
+  hosts: webservers
   gather_facts: false
   tasks:
     - name: httpd is not installed
