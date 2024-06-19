@@ -3,7 +3,7 @@
   hosts: webservers
   become: yes
   gather_facts: false
-  become: yes
+  
   tasks:
     - name: list all the users
       command: cat /etc/passwd
