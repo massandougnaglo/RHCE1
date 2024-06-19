@@ -1,6 +1,7 @@
 ---
 - hosts: webservers
   become: yes
+  gather_facts: false
   tasks:
     - debug:
         msg: "{{inventory_hostname}}"
