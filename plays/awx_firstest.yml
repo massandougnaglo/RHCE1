@@ -1,0 +1,13 @@
+---
+- name: check if httpd is installed
+  hosts: webservwes
+  gather_facts: false
+  tasks:
+    - name: httpd is not installed
+      debug:
+        msg: "httpd is installed"
+      when: "'httpd' in ansible_facts.packages"
+    - name: nginx
+      debug:
+        msg: "nginx is installed"
+      when: "'nginx' not in ansible_facts.packages"  
