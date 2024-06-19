@@ -1,6 +1,7 @@
 ---
 - name: check installed
   hosts: webservers
+  become: yes
   gather_facts: false
   tasks:
     - name: check software
