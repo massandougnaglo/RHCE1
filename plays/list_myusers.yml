@@ -1,0 +1,18 @@
+---
+- name: list of user
+  hosts: webservers
+  become: yes
+  gather_facts: false
+  become: yes
+  tasks:
+    - name: list all the users
+      command: cat /etc/passwd
+      register: passwd_content
+
+    - name: details
+      set_fact:
+        users: "{{passwd_content | map('split', ':') | map('first') | list }}"
+
+    - name: display
+      debug:
+        msg: "local users on {{inventory_hostname }}: {{ users }}"
