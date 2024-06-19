@@ -9,9 +9,9 @@
       command: cat /etc/passwd
       register: passwd_content
 
-    - name: details
-      set_fact:
-        users: "{{passwd_content | map('split', ':') | map('first') | list }}"
+    #- name: details
+     # set_fact:
+      #  users: "{{passwd_content | map('split', ':') | map('first') | list }}"
 
     - name: display
       debug:
