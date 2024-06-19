@@ -1,0 +1,13 @@
+---
+- name: check installed
+  hosts: webservers
+  gather_facts: false
+  tasks:
+    - name: check software
+      command: "yum list installed"
+      register: installed_result"
+
+    - name: print message
+      debug:
+        msg: "{{installed_result}}"
+      when: installed_result != 0
