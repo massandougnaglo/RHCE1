@@ -15,4 +15,4 @@
 
     - name: display
       debug:
-        msg: "local users on {{inventory_hostname }}: {{ users }}"
+        msg: "{{passwd_content }}"
