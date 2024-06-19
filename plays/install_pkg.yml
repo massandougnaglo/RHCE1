@@ -5,7 +5,7 @@
   tasks:
     - name: check software
       command: "yum list installed"
-      register: installed_result"
+      register: installed_result
 
     - name: print message
       debug:
