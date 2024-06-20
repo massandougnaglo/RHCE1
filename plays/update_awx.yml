@@ -1,0 +1,9 @@
+---
+- name: update the {{host_group}}
+  hosts: host_group
+  become: yes
+  tasks:
+    - name: update
+      yum:
+        name: '*'
+        state: latest
