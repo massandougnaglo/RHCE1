@@ -1,6 +1,6 @@
 ---
 - name: list of user
-  hosts: webservers
+  hosts: host_group
   become: yes
   gather_facts: false
   
