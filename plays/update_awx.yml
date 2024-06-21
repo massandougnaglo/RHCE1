@@ -1,6 +1,6 @@
 ---
 - name: update the {{host_group}}
-  hosts: host_group
+  hosts: webservers
   become: yes
   tasks:
     - name: update
