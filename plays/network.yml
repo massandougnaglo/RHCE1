@@ -1,13 +1,15 @@
 ---
-- name: Gather and list network device information
-  hosts: network_devices  # This should match the group or hosts defined in your inventory file
-  gather_facts: no  # Disable the default fact gathering, as we will gather specific network facts
+- name: Ping Cisco devices
+  hosts: cisco_devices  # Replace with your inventory group or host pattern
+  gather_facts: no  # Disable fact gathering for faster execution
 
   tasks:
-    - name: Gather network device facts
-      ios_facts:  # Use the appropriate module based on your network device (e.g., nxos_facts, eos_facts)
-      register: device_facts
+    - name: Ping a specific IP address
+      ios_ping:
+        dest: 8.8.8.8  # Replace with the IP address you want to ping
+        count: 5  # Number of ping packets to send
+      register: ping_result
 
-    - name: Display gathered network device information
+    - name: Display the ping result
       debug:
-        var: device_facts.ansible_facts
+        var: ping_result
