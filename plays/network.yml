@@ -1,0 +1,13 @@
+---
+- name: Gather and list network device information
+  hosts: network_devices  # This should match the group or hosts defined in your inventory file
+  gather_facts: no  # Disable the default fact gathering, as we will gather specific network facts
+
+  tasks:
+    - name: Gather network device facts
+      ios_facts:  # Use the appropriate module based on your network device (e.g., nxos_facts, eos_facts)
+      register: device_facts
+
+    - name: Display gathered network device information
+      debug:
+        var: device_facts.ansible_facts
