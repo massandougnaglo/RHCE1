@@ -1,21 +1,3 @@
----
-- name: Display CPU, Memory, and RAM usage on Cisco devices
-  hosts: cisco_devices  # Replace with your inventory group or host pattern
-  gather_facts: no  # Disable the default fact gathering
-
-  tasks:
-    - name: Gather facts from Cisco device
-      ios_facts:
-      register: device_facts
-
-    - name: Display CPU usage
-      debug:
-        msg: "CPU usage on {{ inventory_hostname }}: {{ device_facts.ansible_net_cpu | default('N/A') }}"
-
-    - name: Display Memory usage
-      debug:
-        msg: "Memory usage on {{ inventory_hostname }}: {{ device_facts.ansible_net_mem | default('N/A') }}"
-
-    - name: Display RAM usage
-      debug:
-        msg: "RAM usage on {{ inventory_hostname }}: {{ device_facts.ansible_net_memfree_mb | default('N/A') }} MB free out of {{ device_facts.ansible_net_memtotal_mb | default('N/A') }} MB"
+The servers have been updated, rebooted and are running fine. However some open vulnerabilities have been 
+identified on some of them with “high priority” that need to be addressed as soon as possible. Please take a look and 
+let us know when they  can be done when you have a chance.  Attached is the host names, vuneralbilities and the solutions.
