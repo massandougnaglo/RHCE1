@@ -1,1 +1,1 @@
-hello word
+The primary disadvantage of blocking ICMP timestamp requests is the potential reduction in network diagnostic capabilities, particularly for legacy systems or specific time-sensitive applications. However, in most modern environments, these drawbacks are minimal, and the security benefits typically outweigh the disadvantages. Still, it's essential to assess your specific network needs before implementing this change to ensure it won't disrupt critical operations.
