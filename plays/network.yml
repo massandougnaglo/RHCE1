@@ -1,1 +1,18 @@
-hello world
+
+#!/bin/bash
+
+# List of server IP addresses or hostnames
+servers=("server1" "server2" "server3")
+
+# Path to the file to check
+file_path="/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.d/default"
+
+# Loop through each server and check if the file exists
+for server in "${servers[@]}"; do
+    echo "Checking on $server..."
+    if ssh "$server" "[ -f $file_path ]"; then
+        echo "File 'default' exists on $server."
+    else
+        echo "File 'default' does NOT exist on $server."
+    fi
+done
