@@ -1,14 +1,2 @@
 
----
-- name: Copy default file to remote server
-  hosts: target_server
-  become: yes
-  tasks:
-    - name: Copy default file to the remote server
-      copy:
-        src: /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.d/default
-        dest: /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.d/default
-        owner: root
-        group: root
-        mode: '0644'
-
+-hllo word
