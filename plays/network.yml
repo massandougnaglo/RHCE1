@@ -1,2 +1,28 @@
+Self-Assessment: March to September
 
--hllo word
+As a Windows and Linux System Engineer working in a cloud AWS environment, my role has encompassed significant responsibilities aimed at ensuring seamless infrastructure management and process automation. Below is a detailed assessment of my contributions over the last seven months:
+
+Patching Process for RND and Production Environments
+I authored comprehensive documentation detailing the patching processes for both Research and Development (RND) and Production environments. This documentation has streamlined the patching workflow, ensuring clarity for the team and stakeholders. Each month, I performed system patches across all servers, ensuring the timely resolution of both existing and emerging vulnerabilities. I also tracked and documented the status of these vulnerabilities to maintain an up-to-date log of security compliance.
+
+Automation with Ansible
+I successfully set up Ansible across all of our Windows, Linux, and network environments. By doing so, I improved configuration management and automated routine tasks, increasing operational efficiency. I also wrote Ansible playbooks and PowerShell scripts to automate our server baselines and other critical processes. These automations have not only minimized manual efforts but have also improved the consistency of our server configurations.
+
+Ansible-AWX Setup and Configuration
+In addition to deploying Ansible, I installed and configured Ansible-AWX. This has provided a centralized interface for managing automation tasks and has enhanced the visibility and control over our infrastructure. The implementation has enabled the team to schedule jobs and execute them in a controlled, repeatable manner, which has been a key improvement in our workflow.
+
+User Management and VPN Access
+I have been responsible for managing user access to VPN and Active Directory, ensuring secure connectivity and appropriate access control. I also onboarded new users, providing them with VPN access as part of their integration into the system. This has contributed to a smoother user experience and enhanced security for remote access.
+
+Puppet Enterprise Setup
+I am currently in the process of setting up Puppet Enterprise, which involves configuring the entire environment and drafting its supporting documentation. This initiative aims to further improve our infrastructure automation and is a key project for achieving greater scalability and maintainability of our systems.
+
+Collaboration and Team Contribution
+Throughout this period, I have consistently collaborated with cross-functional teams to align infrastructure improvements with business goals. My contributions have helped streamline operational processes and improve security posture across all environments.
+
+Conclusion
+In summary, over the past seven months, I have demonstrated a strong ability to manage complex infrastructure tasks, implement automation solutions, and resolve critical vulnerabilities. I have made substantial contributions to both the operational and security aspects of our environment, and I look forward to continuing to drive improvements in the future.
+
+
+
+
