@@ -1,40 +1,15 @@
-# init.pp - Puppet manifest to check if new packages have been installed
+# init.pp - Puppet manifest to install Git
 
-class check_new_packages {
-
-  # Ensure the Ruby script is present on the system
-  file { '/usr/local/bin/check_new_packages.rb':
-    ensure  => 'present',
-    mode    => '0755',
-    content => @("EOF"),
-#!/usr/bin/env ruby
-# Ruby script to check if any new packages have been installed
-
-def check_new_packages
-  log_file = '/var/log/yum.log'  # Use yum log for CentOS
-  time_period = "today"          # Adjust time period if needed (e.g., "last 1 day")
-
-  if system("grep 'Installed' #{log_file} --since=#{time_period}")
-    puts "New packages have been installed."
-  else
-    puts "No new packages installed."
-  end
-end
-
-check_new_packages
-| EOF
+class install_git {
+  
+  # Install Git package
+  package { 'git':
+    ensure => installed,
   }
 
-  # Execute the Ruby script to check for new packages
-  exec { 'check-new-packages':
-    command     => '/usr/local/bin/check_new_packages.rb',
-    path        => ['/usr/local/bin', '/usr/bin', '/bin'],
-    refreshonly => true,  # Only run when something changes (you can adjust this if needed)
-    require     => File['/usr/local/bin/check_new_packages.rb'],
-  }
 }
 
-# Include the class to use it
-include check_new_packages
+# Include the class to apply it
+include install_git
 
 
