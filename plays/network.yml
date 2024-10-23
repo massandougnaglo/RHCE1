@@ -1,15 +1,22 @@
-# init.pp - Puppet manifest to install Git
+require 'puppet'
+require 'puppet/reports'
 
-class install_git {
-  
-  # Install Git package
-  package { 'git':
-    ensure => installed,
-  }
+# Define a new report handler named 'package_notifier'
+Puppet::Reports.register_report(:package_notifier) do
+  desc "A report handler that logs newly installed packages."
 
-}
+  # Process the report
+  def process
+    log_file = '/var/log/puppet/package_changes.log'
 
-# Include the class to apply it
-include install_git
+    File.open(log_file, 'a') do |file|
+      self.resource_statuses.each do |resource, status|
+        if status.changed && resource =~ /^Package\[/
+          file.puts("Package installed: #{resource} on #{Time.now}")
+        end
+      end
+    end
+  end
+end
 
 
