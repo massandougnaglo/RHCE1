@@ -1,90 +1,42 @@
-[1..4].map(&:to_i)
-      idle_time = cpu_usage[3]
-      total_time = cpu_usage.reduce(:+)
-      ((total_time - idle_time).to_f / total_time.to_f) * 100
-    end
+# Define a baseline for system resource usage
+class system_baseline_check {
 
-    # Get system memory usageFacter.add(:system_resource_check) do
-  setcode do
-    require 'sys/filesystem'
-    require 'json'
+  $cpu_threshold = 80
+  $memory_threshold = 75
+  $disk_threshold = 90
 
-    # Baseline values (can be adjusted based on your requirements)
-    baseline = {
-      'cpu_threshold' => 80,  # in percentage
-      'memory_threshold' => 75,  # in percentage
-      'disk_threshold' => 90  # in percentage
-    }
+  # CPU usage check
+  exec { 'check_cpu_usage':
+    command => '/bin/bash -c "grep \'cpu \' /proc/stat | awk \'{idle=$5; total=0; for (i=2; i<=5; i++) total+=$i; print (total-idle)/total*100}\'"',
+    path    => '/usr/bin:/bin:/usr/sbin:/sbin',
+    logoutput => true,
+    returns => [0],
+  }
 
-    # Get system CPU usage (Linux-based)
-    def get_cpu_usage
-      cpu_usage = `grep 'cpu ' /proc/stat`.split(" ")
-    def get_memory_usage
-      mem_info = {}
-      File.read('/proc/meminfo').split("\n").each do |line|
-        key, value = line.split(':')
-        mem_info[key.strip] = value.strip.split[0].to_i
-      end
-      total_memory = mem_info['MemTotal']
-      free_memory = mem_info['MemFree'] + mem_info['Buffers'] + mem_info['Cached']
-      ((total_memory - free_memory).to_f / total_memory.to_f) * 100
-    end
+  # Memory usage check
+  exec { 'check_memory_usage':
+    command => '/bin/bash -c "free | grep Mem | awk \'{print $3/$2 * 100.0}\'"',
+    path    => '/usr/bin:/bin:/usr/sbin:/sbin',
+    logoutput => true,
+    returns => [0],
+  }
 
-    # Get system disk usage
-    def get_disk_usage
-      stat = Sys::Filesystem.stat('/')
-      total_bytes = stat.bytes_total
-      available_bytes = stat.bytes_available
-      ((total_bytes - available_bytes).to_f / total_bytes.to_f) * 100
-    end
+  # Disk usage check
+  exec { 'check_disk_usage':
+    command => '/bin/bash -c "df -h / | awk \'$NF==\"/\"{print $5}\'"',
+    path    => '/usr/bin:/bin:/usr/sbin:/sbin',
+    logoutput => true,
+    returns => [0],
+  }
 
-    # Get list of installed packages
-    def get_installed_packages
-      if File.exist?('/usr/bin/dpkg-query')  # Debian/Ubuntu
-        `dpkg-query -W -f='${binary:Package}\n'`.split("\n")
-      elsif File.exist?('/usr/bin/rpm')  # RHEL-based systems
-        `rpm -qa --qf '%{NAME}\n'`.split("\n")
-      else
-        []
-      end
-    end
+  # Get list of installed packages (RHEL-based systems)
+  exec { 'check_installed_packages':
+    command => '/usr/bin/rpm -qa --qf "%{NAME}\n"',
+    path    => '/usr/bin:/bin:/usr/sbin:/sbin',
+    logoutput => true,
+    returns => [0],
+  }
+}
 
-    # Get packages installed during Puppet run (for demonstration, you might want to refine this)
-    def get_recently_installed_packages
-      log_file = '/var/log/puppet/package_changes.log'
-      if File.exist?(log_file)
-        File.readlines(log_file).map { |line| line.strip }
-      else
-        []
-      end
-    end
-
-    # Collect system metrics
-    cpu_usage = get_cpu_usage.round(2)
-    memory_usage = get_memory_usage.round(2)
-    disk_usage = get_disk_usage.round(2)
-    installed_packages = get_installed_packages
-    recently_installed_packages = get_recently_installed_packages
-
-    # Check system resource usage against the baseline
-    cpu_ok = cpu_usage < baseline['cpu_threshold']
-    memory_ok = memory_usage < baseline['memory_threshold']
-    disk_ok = disk_usage < baseline['disk_threshold']
-
-    # Build the report
-    report = {
-      'cpu_usage' => cpu_usage,
-      'memory_usage' => memory_usage,
-      'disk_usage' => disk_usage,
-      'cpu_status' => cpu_ok ? 'OK' : 'Exceeds baseline',
-      'memory_status' => memory_ok ? 'OK' : 'Exceeds baseline',
-      'disk_status' => disk_ok ? 'OK' : 'Exceeds baseline',
-      'installed_packages_count' => installed_packages.size,
-      'recently_installed_packages' => recently_installed_packages
-    }
-
-    report.to_json  # Output the result in JSON format
-  end
-end
 
 
