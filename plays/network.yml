@@ -7,36 +7,53 @@ class system_baseline_check {
 
   # CPU usage check
   exec { 'check_cpu_usage':
-    command => '/bin/bash -c "grep \'cpu \' /proc/stat | awk \'{idle=$5; total=0; for (i=2; i<=5; i++) total+=$i; print (total-idle)/total*100}\'"',
-    path    => '/usr/bin:/bin:/usr/sbin:/sbin',
+    command   => '/bin/bash -c "grep \'cpu \' /proc/stat | awk \'{idle=$5; total=0; for (i=2; i<=5; i++) total+=$i; print (total-idle)/total*100}\'"',
+    path      => '/usr/bin:/bin:/usr/sbin:/sbin',
     logoutput => true,
-    returns => [0],
+    returns   => [0],
+  }
+
+  notify { "CPU Usage Output":
+    message => "CPU usage: ${exec_output}",
+    require => Exec['check_cpu_usage'],
   }
 
   # Memory usage check
   exec { 'check_memory_usage':
-    command => '/bin/bash -c "free | grep Mem | awk \'{print $3/$2 * 100.0}\'"',
-    path    => '/usr/bin:/bin:/usr/sbin:/sbin',
+    command   => '/bin/bash -c "free | grep Mem | awk \'{print $3/$2 * 100.0}\'"',
+    path      => '/usr/bin:/bin:/usr/sbin:/sbin',
     logoutput => true,
-    returns => [0],
+    returns   => [0],
+  }
+
+  notify { "Memory Usage Output":
+    message => "Memory usage: ${exec_output}",
+    require => Exec['check_memory_usage'],
   }
 
   # Disk usage check
   exec { 'check_disk_usage':
-    command => '/bin/bash -c "df -h / | awk \'$NF==\"/\"{print $5}\'"',
-    path    => '/usr/bin:/bin:/usr/sbin:/sbin',
+    command   => '/bin/bash -c "df -h / | awk \'$NF==\"/\"{print $5}\'"',
+    path      => '/usr/bin:/bin:/usr/sbin:/sbin',
     logoutput => true,
-    returns => [0],
+    returns   => [0],
   }
 
-  # Get list of installed packages (RHEL-based systems)
+  notify { "Disk Usage Output":
+    message => "Disk usage: ${exec_output}",
+    require => Exec['check_disk_usage'],
+  }
+
+  # Get list of installed packages
   exec { 'check_installed_packages':
-    command => '/usr/bin/rpm -qa --qf "%{NAME}\n"',
-    path    => '/usr/bin:/bin:/usr/sbin:/sbin',
+    command   => '/usr/bin/rpm -qa --qf "%{NAME}\n"',
+    path      => '/usr/bin:/bin:/usr/sbin:/sbin',
     logoutput => true,
-    returns => [0],
+    returns   => [0],
+  }
+
+  notify { "Installed Packages Output":
+    message => "Installed packages: ${exec_output}",
+    require => Exec['check_installed_packages'],
   }
 }
-
-
-
