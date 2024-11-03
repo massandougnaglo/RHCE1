@@ -1,0 +1,22 @@
+# Ensure the PowerShell alert script exists on the Windows agent
+file { 'C:/ProgramData/PuppetLabs/cache/state/alert.ps1':
+  ensure  => 'file',
+  content => @("POWERSHELL_SCRIPT"),
+# PowerShell script to check for package install/remove events
+Write-Output "Checking for package installations or removals..."
+$events = Get-WinEvent -LogName "Application" -MaxEvents 50 | Where-Object { 
+    $_.Message -match "install" -or $_.Message -match "remove" 
+}
+if ($events) {
+    Write-Output "ALERT: A package was installed or removed on this system!"
+}
+| POWERSHELL_SCRIPT
+  mode    => '0755',
+}
+
+# Execute the PowerShell script on the Windows agent to check logs for install/remove events
+exec { 'alert_on_package_change_windows':
+  command => 'powershell.exe -ExecutionPolicy Bypass -File C:/ProgramData/PuppetLabs/cache/state/alert.ps1',
+  path    => ['C:/Windows/System32/WindowsPowerShell/v1.0'],
+  provider => 'powershell',
+}
