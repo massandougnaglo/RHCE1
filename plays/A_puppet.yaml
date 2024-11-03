@@ -1,0 +1,14 @@
+file { '/opt/puppetlabs/cache/state/alert.rb':
+  ensure  => 'file',
+  content => @("RUBY_SCRIPT"),
+#!/usr/bin/env ruby
+puts "ALERT: A package was installed or removed on this system!"
+| RUBY_SCRIPT
+  mode    => '0755',
+}
+
+exec { 'alert_on_package_change':
+  command => '/usr/bin/ruby /opt/puppetlabs/cache/state/alert.rb',
+  onlyif  => 'grep -E "yum install|yum remove|rpm -i|rpm -e|curl" /var/log/yum.log /var/log/messages',
+  path    => ['/usr/bin', '/bin', '/usr/sbin', '/sbin'],
+}
