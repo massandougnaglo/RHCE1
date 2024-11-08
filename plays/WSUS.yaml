@@ -1,0 +1,51 @@
+i chi checked and TLS1.2 is configured right i mean client and server enabled =1, now how do i check the NET Framework version, after how do i update the NET Framework before enforce TLS 1.2,  and add the registry keys
+ChatGPT said:
+ChatGPT
+To check, update, and configure .NET Framework to support TLS 1.2 on your WSUS server, follow these steps:
+
+Step 1: Check the .NET Framework Version
+Using PowerShell: You can check the installed .NET Framework version by querying the registry:
+
+powershell
+Copy code
+Get-ChildItem -Path 'HKLM:\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\' | Get-ItemPropertyValue -Name Release
+Interpret the Version: Look for the Release number in the output, which corresponds to specific .NET Framework versions:
+
+Release Value	.NET Framework Version
+528040 or higher	.NET Framework 4.8
+461808 – 528039	.NET Framework 4.7.x
+460798 – 461807	.NET Framework 4.7
+394802 – 460797	.NET Framework 4.6.x
+Lower than 394802	Update is recommended
+You’ll want at least .NET Framework 4.6 or higher.
+
+Step 2: Update .NET Framework (if necessary)
+Download the Latest .NET Framework: Visit the .NET Download page and download the latest version compatible with your Windows Server.
+
+Install the Update: Run the installer and follow the prompts. Restart the server afterward to apply the update.
+
+Step 3: Enforce Strong Cryptography for .NET Framework (Enable TLS 1.2)
+After updating, enforce TLS 1.2 by adding registry keys.
+
+Add Registry Keys to Enable TLS 1.2 for .NET Framework: Open PowerShell as Administrator and run the following commands to add the required registry entries:
+
+powershell
+Copy code
+New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\.NETFramework\v4.0.30319" -Name "SystemDefaultTlsVersions" -Value 1 -PropertyType DWORD -Force
+New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\.NETFramework\v4.0.30319" -Name "SchUseStrongCrypto" -Value 1 -PropertyType DWORD -Force
+Restart WSUS and IIS: Restarting WSUS and IIS services applies the changes:
+
+powershell
+Copy code
+iisreset /restart
+Restart-Service WsusService
+Step 4: Verify Connection and Synchronization
+Now, test the WSUS synchronization again. If it still fails, check if there’s any specific error in the WSUS logs or Event Viewer, which can help further troubleshoot the issue.
+
+Let me know if you run into any additional issues!
+
+
+
+
+
+
