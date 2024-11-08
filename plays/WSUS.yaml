@@ -1,5 +1,52 @@
 
 
+Share
+
+
+You said:
+hey you give mea powershell script to disabled TL1.0 and 1.1 and enabled 1.2, but after enabled the TL1.2 on WSUS server the synchronisation is failing what can cause that and how do i fixe that< 
+ChatGPT said:
+ChatGPT
+Memory updated
+The synchronization failure on WSUS after disabling TLS 1.0 and 1.1 and enabling TLS 1.2 is typically caused by a compatibility issue between WSUS and the new TLS settings. Here are some common causes and steps to resolve the issue:
+
+1. Ensure TLS 1.2 is Configured Properly
+Verify that TLS 1.2 is correctly configured on the WSUS server, as well as on the remote server it's trying to connect to (usually Microsoft’s update servers or a parent WSUS server).
+
+Open Registry Editor and navigate to:
+mathematica
+Copy code
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2
+Make sure that both Client and Server subkeys have a DWORD value named Enabled set to 1.
+2. Update .NET Framework and Configure TLS 1.2
+WSUS relies on .NET Framework, so .NET must support TLS 1.2. Check that .NET is up-to-date (recommended version is 4.6 or newer).
+
+To enforce TLS 1.2, add the following registry keys:
+makefile
+Copy code
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0.30319
+SystemDefaultTlsVersions = 1 (DWORD)
+SchUseStrongCrypto = 1 (DWORD)
+This enables strong cryptography, which is necessary for TLS 1.2 connections.
+3. Restart the WSUS Service and IIS
+After making changes to TLS settings or registry keys, restart the WSUS server and the IIS services:
+
+powershell
+Copy code
+iisreset /restart
+Then restart WSUS:
+
+powershell
+Copy code
+Restart-Service WsusService
+4. Check WSUS Event Logs for Errors
+Use the Event Viewer on WSUS to see if any TLS or network errors are reported. This can help pinpoint the issue if there’s a mismatch in protocol or cipher configurations.
+
+5. Test Connectivity
+Ensure the WSUS server can communicate with Microsoft Update servers over TLS 1.2. You can use tools like Test-NetConnection or Invoke-WebRequest to confirm that outbound connections on TLS 1.2 succeed.
+
+
+
 
 
 
