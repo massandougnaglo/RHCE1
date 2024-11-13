@@ -1,12 +1,13 @@
-sudo systemctl stop puppet_ace-metrics.timer
-sudo systemctl stop puppet_ace-tidy.timer
-sudo systemctl stop puppet_bolt-metrics.timer
-sudo systemctl stop puppet_bolt-tidy.timer
-sudo systemctl stop puppet_console-metrics.timer
-sudo systemctl stop puppet_orchestrator-metrics.timer
-sudo systemctl stop puppet_orchestrator-tidy.timer
-sudo systemctl stop puppet_puppetdb-metrics.timer
-sudo systemctl stop puppet_puppetdb-tidy.timer
-sudo systemctl stop puppet_puppetserver-metrics.timer
-sudo systemctl stop puppet_puppetserver-tidy.timer
+
 ailed to stop puppet_puppetserver-tidy.time.service: Unit puppet_puppetserver-tidy.time.service not loaded
+sudo systemctl disable puppet_ace-metrics.timer
+sudo systemctl disable puppet_ace-tidy.timer
+sudo systemctl disable puppet_bolt-metrics.timer
+sudo systemctl disable puppet_bolt-tidy.timer
+sudo systemctl disable puppet_console-metrics.timer
+sudo systemctl disable puppet_orchestrator-metrics.timer
+sudo systemctl disable puppet_orchestrator-tidy.timer
+sudo systemctl disable puppet_puppetdb-metrics.timer
+sudo systemctl disable puppet_puppetdb-tidy.timer
+sudo systemctl disable puppet_puppetserver-metrics.timer
+sudo systemctl disable puppet_puppetserver-tidy.timer
