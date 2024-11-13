@@ -1,2 +1,21 @@
+ UNIT                                LOAD   ACTIVE SUB    DESCRIPTION
+● besclient.service                   loaded failed failed BESClient daemon
+● puppet_ace-metrics.service          loaded failed failed Oneshot service to capture Puppet metrics
+● puppet_ace-tidy.service             loaded failed failed Oneshot service to tidy Puppet metrics
+● puppet_bolt-metrics.service         loaded failed failed Oneshot service to capture Puppet metrics
+● puppet_bolt-tidy.service            loaded failed failed Oneshot service to tidy Puppet metrics
+● puppet_console-metrics.service      loaded failed failed Oneshot service to capture Puppet metrics
+● puppet_orchestrator-metrics.service loaded failed failed Oneshot service to capture Puppet metrics
+● puppet_orchestrator-tidy.service    loaded failed failed Oneshot service to tidy Puppet metrics
+● puppet_puppetdb-metrics.service     loaded failed failed Oneshot service to capture Puppet metrics
+● puppet_puppetdb-tidy.service        loaded failed failed Oneshot service to tidy Puppet metrics
+● puppet_puppetserver-metrics.service loaded failed failed Oneshot service to capture Puppet metrics
+● puppet_puppetserver-tidy.service    loaded failed failed Oneshot service to tidy Puppet metrics
 
+LOAD   = Reflects whether the unit definition was properly loaded.
+ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
+SUB    = The low-level unit activation state, values depend on unit type.
+
+12 loaded units listed. Pass --all to see loaded but inactive units, too.
+To show all installed unit files use 'systemctl list-unit-files'
 
