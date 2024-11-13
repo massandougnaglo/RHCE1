@@ -1,2 +1,24 @@
 sudo systemctl disable besclient.service puppet_ace-metrics.service puppet_ace-tidy.service puppet_bolt-metrics.service puppet_bolt-tidy.service puppet_console-metrics.service puppet_orchestrator-metrics.service puppet_orchestrator-tidy.service puppet_puppetdb-metrics.service puppet_puppetdb-tidy.service puppet_puppetserver-metrics.service puppet_puppetserver-tidy.service
 sudo systemctl stop besclient.service puppet_ace-metrics.service puppet_ace-tidy.service puppet_bolt-metrics.service puppet_bolt-tidy.service puppet_console-metrics.service puppet_orchestrator-metrics.service puppet_orchestrator-tidy.service puppet_puppetdb-metrics.service puppet_puppetdb-tidy.service puppet_puppetserver-metrics.service puppet_puppetserver-tidy.service
+arning: Stopping puppet_ace-metrics.service, but it can still be activated by:
+  puppet_ace-metrics.timer
+Warning: Stopping puppet_ace-tidy.service, but it can still be activated by:
+  puppet_ace-tidy.timer
+Warning: Stopping puppet_bolt-metrics.service, but it can still be activated by:
+  puppet_bolt-metrics.timer
+Warning: Stopping puppet_bolt-tidy.service, but it can still be activated by:
+  puppet_bolt-tidy.timer
+Warning: Stopping puppet_console-metrics.service, but it can still be activated by:
+  puppet_console-metrics.timer
+Warning: Stopping puppet_orchestrator-metrics.service, but it can still be activated by:
+  puppet_orchestrator-metrics.timer
+Warning: Stopping puppet_orchestrator-tidy.service, but it can still be activated by:
+  puppet_orchestrator-tidy.timer
+Warning: Stopping puppet_puppetdb-metrics.service, but it can still be activated by:
+  puppet_puppetdb-metrics.timer
+Warning: Stopping puppet_puppetdb-tidy.service, but it can still be activated by:
+  puppet_puppetdb-tidy.timer
+Warning: Stopping puppet_puppetserver-metrics.service, but it can still be activated by:
+  puppet_puppetserver-metrics.timer
+Warning: Stopping puppet_puppetserver-tidy.service, but it can still be activated by:
+  puppet_puppetserver-tidy.timer
