@@ -9,3 +9,4 @@ sudo systemctl stop puppet_puppetdb-metrics.timer
 sudo systemctl stop puppet_puppetdb-tidy.timer
 sudo systemctl stop puppet_puppetserver-metrics.timer
 sudo systemctl stop puppet_puppetserver-tidy.timer
+ailed to stop puppet_puppetserver-tidy.time.service: Unit puppet_puppetserver-tidy.time.service not loaded
