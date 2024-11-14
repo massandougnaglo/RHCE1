@@ -11,3 +11,5 @@ sudo systemctl disable puppet_puppetdb-metrics.timer
 sudo systemctl disable puppet_puppetdb-tidy.timer
 sudo systemctl disable puppet_puppetserver-metrics.timer
 sudo systemctl disable puppet_puppetserver-tidy.timer
+sudo rm -f /etc/systemd/system/puppet_*.service
+sudo rm -f /lib/systemd/system/puppet_*.service
