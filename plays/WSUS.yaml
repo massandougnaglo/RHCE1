@@ -1,15 +1,2 @@
 
-ailed to stop puppet_puppetserver-tidy.time.service: Unit puppet_puppetserver-tidy.time.service not loaded
-sudo systemctl disable puppet_ace-metrics.timer
-sudo systemctl disable puppet_ace-tidy.timer
-sudo systemctl disable puppet_bolt-metrics.timer
-sudo systemctl disable puppet_bolt-tidy.timer
-sudo systemctl disable puppet_console-metrics.timer
-sudo systemctl disable puppet_orchestrator-metrics.timer
-sudo systemctl disable puppet_orchestrator-tidy.timer
-sudo systemctl disable puppet_puppetdb-metrics.timer
-sudo systemctl disable puppet_puppetdb-tidy.timer
-sudo systemctl disable puppet_puppetserver-metrics.timer
-sudo systemctl disable puppet_puppetserver-tidy.timer
-sudo rm -f /etc/systemd/system/puppet_*.service
-sudo rm -f /lib/systemd/system/puppet_*.service
+Get-WindowsOptionalFeature -Online | Where-Object {$_.FeatureName -like "*SMB1*"}
