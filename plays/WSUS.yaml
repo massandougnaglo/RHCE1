@@ -1,2 +1,61 @@
 
-Get-WindowsOptionalFeature -Online | Where-Object {$_.FeatureName -like "*SMB1*"}
+1. Verify the .NET Framework Version
+Some Windows features, like WSUS or IIS, require at least .NET Framework 4.6.2 for TLS 1.2.
+
+Run the following PowerShell command to check the installed version:
+powershell
+Copy code
+Get-ChildItem "HKLM:\SOFTWARE\Microsoft\NET Framework Setup\NDP" -Recurse | Get-ItemProperty -Name Version -ErrorAction SilentlyContinue | Where-Object { $_.Version -match "^4\." } | Select-Object -ExpandProperty Version
+If the version is below 4.6.2, download and install the latest .NET Framework from Microsoft's .NET download page.
+2. Update the Registry for TLS 1.2
+Manually configure the registry to enable TLS 1.2 and disable older protocols:
+
+Open Registry Editor:
+
+Press Win + R, type regedit, and press Enter.
+Navigate to the Schannel Settings:
+
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols
+Create Keys for TLS 1.2:
+
+If the keys do not exist, create them manually:
+Right-click on Protocols → New → Key → Name it TLS 1.2.
+Under TLS 1.2, create two subkeys: Client and Server.
+Enable TLS 1.2:
+
+For both Client and Server, create the following DWORD (32-bit) values:
+Enabled: Set to 1.
+DisabledByDefault: Set to 0.
+Disable Older Protocols (Optional):
+
+Repeat the above steps for TLS 1.0 and TLS 1.1, but set Enabled to 0 to disable them.
+3. Configure .NET Applications to Use TLS 1.2
+For .NET applications, ensure they default to TLS 1.2 by updating the registry:
+
+Navigate to: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0.30319
+Create or modify the following DWORD (32-bit) values:
+SystemDefaultTlsVersions: Set to 1.
+SchUseStrongCrypto: Set to 1.
+4. Restart the Server
+After applying registry changes, restart the server to ensure the settings take effect.
+
+5. Verify TLS 1.2
+Use a tool like Wireshark or Test-Connection to monitor traffic and confirm TLS 1.2 is being used.
+Use PowerShell to test a connection over TLS 1.2:
+powershell
+Copy code
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$webRequest = Invoke-WebRequest -Uri https://www.howsmyssl.com/a/check
+$webRequest.Content
+The output should indicate that TLS 1.2 is being used.
+
+Let me know if you need further assistance!
+
+
+
+
+
+
+
+
+
