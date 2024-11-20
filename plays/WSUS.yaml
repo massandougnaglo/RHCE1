@@ -1,4 +1,42 @@
-"
+--------------------------------------
+freshclam daemon 0.103.12 (OS: linux-gnu, ARCH: x86_64, CPU: x86_64)
+ClamAV update process started at Fri Nov  1 11:01:36 2024
+daily database available for update (local version: 27427, remote version: 27445)
+WARNING: Download failed (28) WARNING:  Message: Timeout was reached
+WARNING: downloadPatch: Can't download daily-27428.cdiff from https://database.clamav.net/daily-27428.cdiff
+WARNING: Download failed (28) WARNING:  Message: Timeout was reached
+WARNING: downloadPatch: Can't download daily-27428.cdiff from https://database.clamav.net/daily-27428.cdiff
+WARNING: Download failed (28) WARNING:  Message: Timeout was reached
+WARNING: downloadPatch: Can't download daily-27428.cdiff from https://database.clamav.net/daily-27428.cdiff
+WARNING: Incremental update failed, trying to download daily.cvd
+WARNING: Download failed (28) WARNING:  Message: Timeout was reached
+WARNING: Can't download daily.cvd from https://database.clamav.net/daily.cvd
+Trying again in 5 secs...
+daily database available for update (local version: 27427, remote version: 27445)
+WARNING: Download failed (28) WARNING:  Message: Timeout was reached
+WARNING: downloadPatch: Can't download daily-27428.cdiff from https://database.clamav.net/daily-27428.cdiff
+WARNING: Download failed (28) WARNING:  Message: Timeout was reached
+WARNING: downloadPatch: Can't download daily-27428.cdiff from https://database.clamav.net/daily-27428.cdiff
+WARNING: Download failed (28) WARNING:  Message: Timeout was reached
+WARNING: downloadPatch: Can't download daily-27428.cdiff from https://database.clamav.net/daily-27428.cdiff
+WARNING: Incremental update failed, trying to download daily.cvd
+WARNING: Download failed (28) WARNING:  Message: Timeout was reached
+WARNING: Can't download daily.cvd from https://database.clamav.net/daily.cvd
+Trying again in 5 secs...
+daily database available for update (local version: 27427, remote version: 27445)
+WARNING: Download failed (28) WARNING:  Message: Timeout was reached
+WARNING: downloadPatch: Can't download daily-27428.cdiff from https://database.clamav.net/daily-27428.cdiff
+WARNING: Download failed (28) WARNING:  Message: Timeout was reached
+WARNING: downloadPatch: Can't download daily-27428.cdiff from https://database.clamav.net/daily-27428.cdiff
+ERROR: Download failed (28) ERROR:  Message: Timeout was reached
+ERROR: downloadPatch: Can't download daily-27428.cdiff from https://database.clamav.net/daily-27428.cdiff
+WARNING: Incremental update failed, trying to download daily.cvd
+ERROR: Download failed (28) ERROR:  Message: Timeout was reached
+ERROR: Can't download daily.cvd from https://database.clamav.net/daily.cvd
+Giving up on https://database.clamav.net...
+ERROR: Update failed for database: daily
+ERROR: Database update process failed: Connection failed
+ERROR: Update failed.
 
 
 
