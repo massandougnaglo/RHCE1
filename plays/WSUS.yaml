@@ -1,82 +1,13 @@
 
-Potential Causes
-Network Connectivity Issues:
+url -v https://database.clamav.net
+*   Trying 104.16.219.84:443...
+*   Trying [2606:4700::6810:da54]:443...
+* Immediate connect fail for 2606:4700::6810:da54: Cannot assign requested address
+*   Trying [2606:4700::6810:db54]:443...
+* Immediate connect fail for 2606:4700::6810:db54: Cannot assign requested address
 
-A firewall or proxy might be blocking freshclam from reaching https://database.clamav.net.
-DNS resolution problems could be preventing the server from resolving the update URL.
-Timeout or Latency Issues:
 
-The server may be experiencing high latency or timeouts while attempting to connect to the ClamAV update servers.
-ClamAV Version Compatibility:
 
-The version 0.103.12 might be outdated and incompatible with the current database servers. The latest version of ClamAV as of 2024 is likely newer, and older versions are sometimes deprecated.
-Database Server Changes:
-
-ClamAV has migrated its database to Cloudflare CDN with new URLs like https://database.clamav.net. Older configurations might not support this.
-Rate-Limiting:
-
-The ClamAV update servers might be rate-limiting requests from your server, especially if updates are attempted frequently.
-Configuration Issues:
-
-Your freshclam.conf file might have incorrect settings or insufficient timeout values.
-Steps to Fix the Issue
-Check Network Connectivity:
-
-Ensure your server can reach https://database.clamav.net. Use commands like:
-bash
-Copy code
-curl -v https://database.clamav.net
-ping database.clamav.net
-Confirm DNS resolution is working.
-Increase Timeout in freshclam.conf:
-
-Edit /etc/freshclam.conf and increase the ConnectTimeout value:
-ini
-Copy code
-ConnectTimeout 60
-Restart freshclam after making changes.
-Update ClamAV to the Latest Version:
-
-Install the latest version of ClamAV (at least 1.x series) to ensure compatibility:
-bash
-Copy code
-sudo dnf update clamav
-Verify Database Mirrors:
-
-Update the database mirror settings in freshclam.conf. Add:
-ini
-Copy code
-DatabaseMirror database.clamav.net
-Ensure dns.freshclam.net resolves properly.
-Check for Rate-Limiting:
-
-If you suspect rate-limiting, reduce the frequency of updates in freshclam.conf:
-ini
-Copy code
-Checks 2
-This will limit updates to twice a day.
-Manually Update Database:
-
-If the automatic update fails, manually download the database files:
-bash
-Copy code
-wget https://database.clamav.net/main.cvd
-wget https://database.clamav.net/daily.cvd
-wget https://database.clamav.net/bytecode.cvd
-sudo cp *.cvd /var/lib/clamav/
-sudo systemctl restart clamav-freshclam
-Enable Debugging:
-
-Add LogVerbose yes to freshclam.conf to gather more detailed logs for debugging.
-Verifying the Fix
-Once changes are applied, run:
-
-bash
-Copy code
-freshclam --debug
-This will attempt to update the database and provide more detailed output for troubleshooting.
-
-Let me know if you need further assistance!
 
 
 
