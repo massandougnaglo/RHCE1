@@ -1,10 +1,26 @@
 
-url -v https://database.clamav.net
-*   Trying 104.16.219.84:443...
-*   Trying [2606:4700::6810:da54]:443...
-* Immediate connect fail for 2606:4700::6810:da54: Cannot assign requested address
-*   Trying [2606:4700::6810:db54]:443...
-* Immediate connect fail for 2606:4700::6810:db54: Cannot assign requested address
+---
+- name: Check clamav-freshclam status and extract database info
+  hosts: all
+  become: yes
+  tasks:
+    - name: Check the status of clamav-freshclam service
+      shell: systemctl status clamav-freshclam | grep -i 'database'
+      register: freshclam_status
+      ignore_errors: yes
+
+    - name: Get the server's IP address
+      command: hostname -I
+      register: server_ip
+      changed_when: false
+
+    - name: Save status and database info to /tmp
+      copy:
+        content: |
+          Server IP: {{ server_ip.stdout.strip() }}
+          -------------------------------------
+          {{ freshclam_status.stdout }}
+        dest: "/tmp/clamav_status_{{ server_ip.stdout.split()[0] }}.log"
 
 
 
