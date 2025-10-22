@@ -1,0 +1,24 @@
+[defaults]
+
+# some basic default values...
+
+#inventory      = /etc/ansible/hosts
+inventory      = /home/ansible.user/ansible/hosts
+interpreter_python = auto_silent
+#library        = /usr/share/my_modules/
+#module_utils   = /usr/share/my_module_utils/
+#remote_tmp     = ~/.ansible/tmp
+remote_user     = ansible.user
+#local_tmp      = ~/.ansible/tmp
+#plugin_filters_cfg = /etc/ansible/plugin_filters.yml
+#forks          = 5
+forks          = 10
+#poll_interval  = 15
+#sudo_user      = root
+#ask_sudo_pass = True
+#ask_pass      = True
+ask_pass      = false
+#transport      = smart
+#remote_port    = 22
+#module_lang    = C
+#module_set_locale = False
