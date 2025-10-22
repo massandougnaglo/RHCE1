@@ -1,0 +1,33 @@
+---
+- name: Check and Upgrade Amazon Linux 2023 to Latest Release
+  #hosts: amazon_linux_2023
+  hosts: amz_2023
+  become: true
+  tasks:
+
+    - name: Show current system release
+      command: dnf list system-release
+      register: current_release
+      changed_when: false
+
+    - name: Display current release version
+      debug:
+        msg: "{{ current_release }}"
+
+    - name: Show available updates
+      command: dnf update --assumeno
+      register: available_updates
+      changed_when: false
+
+    - name: Display available updates
+      debug:
+        msg: "{{ available_updates }}"
+
+    - name: Upgrade to the latest available release
+      command: dnf upgrade --releasever=latest -y
+      register: upgrade_result
+      changed_when: "'No packages marked for update' not in upgrade_result.stdout"
+
+    - name: Display upgrade results
+      debug:
+        msg: "{{ upgrade_result }}"
