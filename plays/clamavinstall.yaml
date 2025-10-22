@@ -1,0 +1,66 @@
+---
+- hosts: 
+  become: true
+  tasks:
+    - name: Install clamav1.4
+      command: dnf install -y clamav1.4
+      ignore_errors: yes
+
+    - name: Install clamd1.4
+      command: dnf install -y clamd1.4
+      ignore_errors: yes
+
+    - name: "copy config files"
+      become: true
+      copy:
+        src: clamd.conf
+        dest: /etc/clamd.d
+        owner: root
+        group: root
+        mode: 0644
+    - name: "copy config files"
+      become: true
+      copy:
+        src: freshclam.conf
+        dest: /etc
+        owner: root
+        group: root
+        mode: 0644
+    - name: "copy config files"
+      become: true
+      copy:
+        src: clamd.remote.conf
+        dest: /etc/clamd.d
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: "create log files"
+      become: true
+      ansible.builtin.shell: |
+          touch /var/log/clamd.scan
+          touch /var/log/freshclam.log
+          chmod 664 /var/log/clamd.scan
+          chmod 664 /var/log/freshclam.log
+          chown clamscan /var/log/clamd.scan
+          chown clamupdate:clamupdate /var/log/freshclam.log
+
+    - name: execute the cron job
+      command: /root/run_js.sh
+
+    - name: "start services"
+      become: true
+      service:
+        name: clamav-freshclam
+        state: started
+        enabled: true
+
+
+- hosts:
+  tasks:
+    - name: "start services"
+      become: true
+      service:
+        name: clamd@clamd
+        state: started
+        enabled: true
