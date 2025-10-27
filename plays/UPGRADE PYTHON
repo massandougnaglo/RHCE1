@@ -1,0 +1,39 @@
+UPGRADING PYTHON TO VERSION 3 : 
+By following these steps, you should have a fully functional Python 3 environment on your Amazon Linux 2 instance, ready for development and deployment tasks.
+1.	sudo yum update -y
+2.	sudo amazon-linux-extras install python3.8
+3.	Verify the installation: python3.8 --version
+4.	If not yet reflected ( still pointing to version 2 )  do the following below
+5.	sudo alternatives --set python /usr/bin/python3.8
+6.	Update pip to the latest version: 
+a.	python3.8 -m ensurepip –upgrade
+b.	python3.8 -m pip install --upgrade pip
+7.	If python 3 is still not default then run the following: 
+a.	sudo alternatives --install /usr/bin/python python /usr/bin/python2.7 1
+b.	sudo alternatives --install /usr/bin/python python /usr/bin/python3.8 2
+8.	Note ,   The --install command registers each version of Python with the alternatives system, assigning them a priority (higher numbers mean higher priority).
+9.	Configure alternatives to use Python 3 by default ( you can also use this to downgrade ) 
+a.	sudo alternatives --config python
+b.	Verify the change: python --version
+10.	This should now display the version of Python 3.8 (or any version you installed and configured) , If you encounter issues, you can directly change the symbolic link:
+a.	sudo ln -sf /usr/bin/python3.8 /usr/bin/python
+b.	Verify again with: python --version
+
+
+
+OTHERS
+
+1.	Install pip3 if not already installed: sudo yum install python3-pip
+2.	If PIP not installed then you can also run the following below using python2
+a.	sudo /usr/bin/python2 /usr/bin/yum install python3-pip
+b.	curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+c.	sudo python3 get-pip.py
+3.	pip3 install --upgrade pip
+4.	pip3 –version
+5.	Install essential Python packages: pip3 install virtualenv boto3 requests
+
+             CONFIRM 
+1.	Set up a virtual environment (optional but recommended for project isolation)
+a.	python3 -m venv myenv
+b.	source myenv/bin/activate
+c.	To deactivate the virtual environment, simply run: d
