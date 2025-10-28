@@ -1,0 +1,33 @@
+for Inbound and Outbound rules
+
+Inbound i want to be on one server and access another server, that server i am trying to access is the destination and the server  i am seating on is the source then the destination need to give SG access to the source to access him.
+you have to be on destination before make SG inbound rule
+
+
+ssh ansible.user@10xxx
+
+sudo useradd ansible.user && passwd ansible.user --stdin
+
+ 
+sudo chage -I -1 -m 0 -M 99999 -E -1 ansible.user
+
+chage -I -1 -m 0 -M 99999 -E -1 ssm-user
+
+sudo chage -l username
+
+visudo
+
+ mkdir -p /home/ansible.user/.ssh 
+
+   21  chown ansible.user:ansible.user /home/ansible.user/.ssh 
+ 
+   23  chmod 700 /home/ansible.user/.ssh  
+   25  cd .ssh/
+   28  touch /home/ansible.user/.ssh/authorized_keys
+   31  chmod 600 /home/ansible.user/.ssh/authorized_keys
+   33  vi /home/ansible.user/.ssh/authorized_keys
+   34  vi  authorized_keys
+   35  in Bastion  cd to ansible.user home directory and run this
+        ssh-copy-id -i .ssh/id_rsa.pub ansible.user@10xxx 
+
+
