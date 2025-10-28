@@ -1,0 +1,60 @@
+Install git-remote-codecommit:
+	- pip3 install git-remote-codecommit (can either install from standard command line or from within python virtual environment
+vi codeartifact.sh
+#  chmod +x codeartifact.sh
+# ./codeartifact.sh
+# pip3 install git-remote-codecommit
+#  which git-remote-codecommit
+#which git-remote-codecommit
+#mkdir ansible-repo
+#cd ansible-repo a create the clone file by copying the https from codecommit repo
+git clone https://git-codecommit.us-east-1.amazonaws.com/v1/repos/Ansible-Playbooks
+# #cd ansible-repo and vi get.sh "git clone codecommit://Ansible-Playbooks"
+#sh get.sh
+#ls
+#cd Ansible-Playbooks-Rnd/
+#git status
+#mkdir Admins-Playbooks
+#aws s3 cp s3://admin-rnd/playbooks/  --recursive  Admins-Playbooks
+or 
+# cd Admins-Playbooks aws s3 cp s3://admin-rnd/_playbooks/.  --recursive  
+#git status
+#git add Admins-Playbooks/
+#git status
+#git commit -m "adding Admins-Playbooks"
+#git status
+#git push
+
+
+
+	- If above does not work, download package from GitHub and run:
+		sudo python3 setup.py install
+
+1. Create a new python3 virtual environment
+    e.g. pip3 -m venv slipstream
+
+    Activate the new environment
+    e.g. source slipstream/bin/activate
+
+2. Configure SSO on terminal window
+    Run: aws configure sso - follow on sceeen prompts
+        When prompted, bring up local browser and set URL to that indicated on terminal window
+        Enter code from terminal onto browser screen
+        Hit enter  - ensure that the code matches what you see on terminal
+        Hit enter
+
+3. On terminal
+        Enter Account you wish to access (Sandbox)
+        Use Devloper-Pipeline-PS role
+4. From SSO (Web), copy role credentials and paste it into ~/.aws/credentials
+        run: git clone codecommit://<role>@<repo>
+
+#####################################################
+
+#!/bin/bash
+
+aws codeartifact login --tool pip --repository GeoCloud-Rnd-Development --domain g-domain --domain-owner 18xxxx --region us-east-1
+
+export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain g-domain --domain-owner 18xxxx --region us-east-1 --query authorizationToken --output text`
+
+ 
