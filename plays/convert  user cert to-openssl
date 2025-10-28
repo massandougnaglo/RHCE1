@@ -1,0 +1,2 @@
+openssl x509 -in kog-lap.cer -pubkey -inform der -noout | ssh-keygen -i -m PKCS8 -f /dev/stdin
+ssh-rsa 
